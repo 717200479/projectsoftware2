@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tools & Boxes | ArabTech</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <style>
+        body {
+            background-color: #f8f9fa;
+            font-family: Arial, sans-serif;
+        }
+        header {
+            background-color: #007bff;
+            color: white;
+            padding: 20px 0;
+            text-align: center;
+        }
+        nav {
+            background-color: #343a40;
+            padding: 10px 0;
+        }
+        nav ul {
+            list-style: none;
+            padding: 0;
+        }
+        nav ul li {
+            display: inline;
+            margin-right: 20px;
+        }
+        nav ul li a {
+            color: white;
+            text-decoration: none;
+        }
+        nav ul li a:hover {
+            text-decoration: underline;
+        }
+        main {
+            padding: 20px;
+        }
+        footer {
+            background-color: #343a40;
+            color: white;
+            text-align: center;
+            padding: 10px 0;
+        }
+        .section-header {
+            margin-top: 20px;
+            color: #007bff;
+            font-weight: bold;
+        }
+        .tool-list {
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>ArabTech</h1>
+    </header>
+    <nav>
+        <div class="container">
+            <ul>
+                <li><a href="{{ url_for('home') }}">Home</a></li>
+                <li><a href="{{ url_for('imei_services') }}">IMEI Services</a></li>
+                <li><a href="{{ url_for('remote') }}">Remote Services</a></li>
+                <li><a href="{{ url_for('tools_boxes') }}">Tools & Boxes</a></li>
+            </ul>
+        </div>
+    </nav>
+    <main class="container">
+        <section>
+            <h2 class="section-header">Tools & Boxes</h2>
+            <p>Explore our premium tools and box activations designed for professionals.</p>
+            <p>Whether you're looking for the latest software, hardware tools, or expert services, we have you covered. Browse through our collection and find the right tools to enhance your productivity and efficiency.</p>
+            <div class="tool-list">
+                <h3>Available Tools:</h3>
+                <ul>
+                    <li>Tool 1: Description of Tool 1</li>
+                    <li>Tool 2: Description of Tool 2</li>
+                    <li>Tool 3: Description of Tool 3</li>
+                    <li>Tool 4: Description of Tool 4</li>
+                </ul>
+            </div>
+        </section>
+    </main>
+    <footer>
+        <p>&copy; 2024 ArabTech. All rights reserved.</p>
+    </footer>
+</body>
+</html>

@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="ar">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>إدارة الخدمات</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+</head>
+<body>
+    <div class="container">
+        <h1 class="mt-4 text-center">إدارة الخدمات</h1>
+
+        <div class="card mb-4">
+            <div class="card-header">
+                <h2><i class="fas fa-plus-circle"></i> إضافة خدمة جديدة</h2>
+            </div>
+            <div class="card-body">
+                <form method="POST">
+                    <div class="form-group">
+                        <label for="brand">العلامة التجارية:</label>
+                        <select name="brand" id="brand" class="form-control" required>
+                            <option value="">اختر العلامة التجارية</option>
+                            <option value="samsung">Samsung</option>
+                            <option value="huawei">Huawei</option>
+                            <option value="apple">Apple</option>
+                            <option value="xiaomi">Xiaomi</option>
+                            <option value="oppo">Oppo</option>
+                            <option value="oneplus">OnePlus</option>
+                            <option value="nokia">Nokia</option>
+                            <option value="sony">Sony</option>
+                            <option value="google">Google</option>
+                            <option value="lg">LG</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <input type="text" name="name" class="form-control" placeholder="اسم الخدمة" required>
+                    </div>
+                    <div class="form-group">
+                        <input type="number" step="0.01" name="price" class="form-control" placeholder="السعر" required>
+                    </div>
+                    <div class="form-group">
+                        <textarea name="description" class="form-control" placeholder="الوصف" required></textarea>
+                    </div>
+                    <div class="form-group">
+                        <textarea name="requirements" class="form-control" placeholder="المتطلبات"></textarea>
+                    </div>
+                    <button type="submit" name="add" class="btn btn-primary"><i class="fas fa-plus"></i> إضافة خدمة</button>
+                </form>
+            </div>
+        </div>
+
+        <div class="card mb-4">
+            <div class="card-header">
+                <h2><i class="fas fa-plus-square"></i> زيادة رصيد المستخدم</h2>
+            </div>
+            <div class="card-body">
+                <form method="POST" action="{{ url_for('increase_credit') }}">
+                    <div class="form-group">
+                        <input type="text" name="username" class="form-control" placeholder="اسم المستخدم" required>
+                    </div>
+                    <div class="form-group">
+                        <input type="password" name="password" class="form-control" placeholder="كلمة المرور" required>
+                    </div>
+                    <div class="form-group">
+                        <input type="number" step="0.01" name="credit" class="form-control" placeholder="المبلغ الذي ترغب في إضافته" required>
+                    </div>
+                    <button type="submit" class="btn btn-success"><i class="fas fa-plus-circle"></i> زيادة الرصيد</button>
+                </form>
+            </div>
+        </div>
+
+        <h2><i class="fas fa-list"></i> قائمة الخدمات</h2>
+        <table class="table table-bordered">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>العلامة التجارية</th>
+                    <th>اسم الخدمة</th>
+                    <th>السعر</th>
+                    <th>الوصف</th>
+                    <th>المتطلبات</th>
+                    <th>الإجراءات</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for service in services %}
+                <tr>
+                    <form method="POST">
+                        <td>{{ service[0] }}</td>
+                        <td>
+                            <select name="brand" class="form-control" required>
+                                <option value="{{ service[1] }}">{{ service[1] }}</option>
+                                <option value="Samsung">Samsung</option>
+                                <option value="Huawei">Huawei</option>
+                                <option value="Apple">Apple</option>
+                                <option value="Xiaomi">Xiaomi</option>
+                                <option value="Oppo">Oppo</option>
+                                <option value="OnePlus">OnePlus</option>
+                                <option value="Nokia">Nokia</option>
+                                <option value="Sony">Sony</option>
+                                <option value="Google">Google</option>
+                                <option value="LG">LG</option>
+                            </select>
+                        </td>
+                        <td><input type="text" name="name" class="form-control" value="{{ service[2] }}" required></td>
+                        <td><input type="number" step="0.01" name="price" class="form-control" value="{{ service[3] }}" required></td>
+                        <td><textarea name="description" class="form-control" required>{{ service[4] }}</textarea></td>
+                        <td><textarea name="requirements" class="form-control">{{ service[5] }}</textarea></td>
+                        <td>
+                            <input type="hidden" name="service_id" value="{{ service[0] }}">
+                            <button type="submit" name="edit" class="btn btn-warning"><i class="fas fa-edit"></i> تعديل</button>
+                            <button type="submit" name="delete" class="btn btn-danger"><i class="fas fa-trash"></i> حذف</button>
+                        </td>
+                    </form>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+
+        <h2><i class="fas fa-users"></i> قائمة المستخدمين</h2>
+        <table class="table table-bordered">
+            <thead>
+                <tr>
+                    <th>اسم المستخدم</th>
+                    <th>البريد الإلكتروني</th>
+                    <th>رقم الهاتف</th>
+                    <th>الرصيد</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for user in users %}
+                <tr>
+                    <td><a href="{{ url_for('user_details', username=user[0]) }}">{{ user[0] }}</a></td>
+                    <td>{{ user[1] }}</td>
+                    <td>{{ user[2] }}</td>
+                    <td>{{ user[3] }}</td> <!-- عرض رصيد المستخدم -->
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+
+        {% with messages = get_flashed_messages() %}
+            {% if messages %}
+                <ul class="alert alert-info">
+                {% for message in messages %}
+                    <li>{{ message }}</li>
+                {% endfor %}
+                </ul>
+            {% endif %}
+        {% endwith %}
+    </div>
+    
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>
